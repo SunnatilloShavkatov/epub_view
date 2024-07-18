@@ -14,6 +14,7 @@ import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 export 'package:epubx/epubx.dart' hide Image;
 
 part '../epub_controller.dart';
+
 part '../helpers/epub_view_builders.dart';
 
 const _minTrailingEdge = 0.55;
@@ -338,43 +339,41 @@ class _EpubViewState extends State<EpubView> {
       children: <Widget>[
         if (chapterIndex >= 0 && paragraphIndex == 0)
           builders.chapterDividerBuilder(chapters[chapterIndex]),
-        HtmlWidget(
-          paragraphs[index].element.outerHtml,
-          textStyle: options.textStyle,
-          customWidgetBuilder: (element) {
-            if (element.localName == 'img') {
-              final url = element.attributes['src']!.replaceAll('../', '');
-              final content = document.Content!.Images![url]!.Content!;
-              return Image.memory(Uint8List.fromList(content));
-            }
-            return null;
+        HtmlWidget(paragraphs[index].element.outerHtml,
+            textStyle: options.textStyle, customWidgetBuilder: (element) {
+          if (element.localName == 'img') {
+            final url = element.attributes['src']!.replaceAll('../', '');
+            final content = document.Content!.Images![url]!.Content!;
+            return Image(image: MemoryImage(Uint8List.fromList(content)));
           }
-          // onLinkTap: (href, _, __) => onExternalLinkPressed(href!),
-          // style: {
-          //   'html': Style(
-          //     padding: HtmlPaddings.only(
-          //       top: (options.paragraphPadding as EdgeInsets?)?.top,
-          //       right: (options.paragraphPadding as EdgeInsets?)?.right,
-          //       bottom: (options.paragraphPadding as EdgeInsets?)?.bottom,
-          //       left: (options.paragraphPadding as EdgeInsets?)?.left,
-          //     ),
-          //   ).merge(Style.fromTextStyle(options.textStyle)),
-          // },
-          // extensions: [
-          //   TagExtension(
-          //     tagsToExtend: {"img"},
-          //     builder: (imageContext) {
-          //       final url =
-          //           imageContext.attributes['src']!.replaceAll('../', '');
-          //       final content = Uint8List.fromList(
-          //           document.Content!.Images![url]!.Content!);
-          //       return Image(
-          //         image: MemoryImage(content),
-          //       );
-          //     },
-          //   ),
-          // ],
-        ),
+          return null;
+        }
+            // onLinkTap: (href, _, __) => onExternalLinkPressed(href!),
+            // style: {
+            //   'html': Style(
+            //     padding: HtmlPaddings.only(
+            //       top: (options.paragraphPadding as EdgeInsets?)?.top,
+            //       right: (options.paragraphPadding as EdgeInsets?)?.right,
+            //       bottom: (options.paragraphPadding as EdgeInsets?)?.bottom,
+            //       left: (options.paragraphPadding as EdgeInsets?)?.left,
+            //     ),
+            //   ).merge(Style.fromTextStyle(options.textStyle)),
+            // },
+            // extensions: [
+            //   TagExtension(
+            //     tagsToExtend: {"img"},
+            //     builder: (imageContext) {
+            //       final url =
+            //           imageContext.attributes['src']!.replaceAll('../', '');
+            //       final content = Uint8List.fromList(
+            //           document.Content!.Images![url]!.Content!);
+            //       return Image(
+            //         image: MemoryImage(content),
+            //       );
+            //     },
+            //   ),
+            // ],
+            ),
       ],
     );
   }

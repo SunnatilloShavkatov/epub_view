@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:typed_data';
 
 import 'package:collection/collection.dart' show IterableExtension;
 import 'package:epub_view/src/data/epub_cfi_reader.dart';
@@ -340,6 +341,14 @@ class _EpubViewState extends State<EpubView> {
         HtmlWidget(
           paragraphs[index].element.outerHtml,
           textStyle: options.textStyle,
+          customWidgetBuilder: (element) {
+            if (element.localName == 'img') {
+              final url = element.attributes['src']!.replaceAll('../', '');
+              final content = document.Content!.Images![url]!.Content!;
+              return Image.memory(Uint8List.fromList(content));
+            }
+            return null;
+          }
           // onLinkTap: (href, _, __) => onExternalLinkPressed(href!),
           // style: {
           //   'html': Style(

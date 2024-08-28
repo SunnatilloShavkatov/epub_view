@@ -33,8 +33,8 @@ class EpubView extends StatefulWidget {
       options: DefaultBuilderOptions(),
     ),
     this.shrinkWrap = false,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   final EpubController controller;
   final ExternalLinkPressed? onExternalLinkPressed;

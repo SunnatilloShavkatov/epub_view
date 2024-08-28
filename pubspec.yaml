@@ -4,6 +4,7 @@ description: Flutter widget for view EPUB documents on on Web, MacOs, Android an
 repository: https://github.com/ScerIO/packages.flutter/tree/main/packages/epub_view
 issue_tracker: https://github.com/ScerIO/packages.flutter/issues?q=is%3Aissue+is%3Aopen+label%3A%22p%3A+epub_view%22
 version: 3.2.0
+publish_to: "none"
 
 environment:
   sdk: ">=3.4.0 <4.0.0"

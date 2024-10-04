@@ -14,9 +14,7 @@ dependencies:
   flutter:
     sdk: flutter
   epubx:
-    git:
-      url: https://github.com/SunnatilloShavkatov/epubx.git
-      ref: main
+    path: packages/epubx
   equatable: ^2.0.5
   html: ^0.15.4
   flutter_widget_from_html_core: ^0.15.2
@@ -27,4 +25,4 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^4.0.0
+  flutter_lints: ^5.0.0
